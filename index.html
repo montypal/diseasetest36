@@ -187,12 +187,12 @@
 <div class="app-container">
     <header>
         <h1>Epidemiology Vignettes</h1>
-        <div class="subtitle">10 Clinical Problems: Decipher the Data</div>
+        <div class="subtitle">50 Clinical Problems: Decipher the Data</div>
     </header>
 
     <div id="quiz-ui">
         <div class="progress-header">
-            <span id="question-counter">Question 1 of 10</span>
+            <span id="question-counter">Question 1 of 50</span>
         </div>
         <div class="progress-bar-container">
             <div class="progress-bar" id="progress-bar"></div>
@@ -202,9 +202,7 @@
             <div class="category-badge" id="category">Category</div>
             <div class="question-text" id="question-text">Loading...</div>
             
-            <div class="options" id="options">
-                <!-- Buttons will be generated here -->
-            </div>
+            <div class="options" id="options"></div>
 
             <div class="feedback" id="feedback">
                 <h3 id="feedback-title"></h3>
@@ -217,7 +215,7 @@
     
     <div id="result-container" style="display:none;">
         <h2>Quiz Complete!</h2>
-        <p>You have finished all 10 questions.</p>
+        <p>You have finished all 50 questions.</p>
         <div class="score-display" id="score"></div>
         <p>Review the principles of Herd Immunity, Vaccine Efficacy, Likelihood Ratios, Sensitivity/Specificity, and Odds Ratio/Relative Risk to reinforce your knowledge.</p>
         <button class="next-btn" style="display:inline-block;" onclick="location.reload()">Restart Quiz</button>
@@ -226,7 +224,7 @@
 
 <script>
     const questions = [
-        // Category 1: Herd Immunity (20%)
+        // Category 1: Herd Immunity (10 questions)
         {
             category: "Herd Immunity",
             text: "Areen is a public health official modeling a new viral outbreak in her city. The basic reproduction number (R₀) of the virus is estimated to be 4. What is the minimum proportion of the population that needs to be immunized to achieve herd immunity?",
@@ -241,13 +239,70 @@
             correct: 2,
             explanation: "Using the formula 1 - (1/R₀) = Threshold: 1 - (1/R₀) = 0.875. This means 1/R₀ = 0.125, which gives R₀ = 8."
         },
-        // Category 2: Vaccine Efficacy (20%)
+        {
+            category: "Herd Immunity",
+            text: "Ezekiel maps an Ebola-like pathogen in a rural setting where R₀ is estimated at 2. What is the minimum vaccination threshold required to halt widespread transmission?",
+            options: ["20%", "40%", "50%", "60%"],
+            correct: 2,
+            explanation: "Herd immunity threshold = 1 - (1/R₀). For R₀ = 2, 1 - (1/2) = 0.50, or 50%."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Isha evaluates a highly contagious variant requiring 90% of the population to be vaccinated to achieve herd immunity. What is the implied basic reproduction number (R₀)?",
+            options: ["5", "8", "10", "12"],
+            correct: 2,
+            explanation: "1 - (1/R₀) = 0.90. Therefore, 1/R₀ = 0.10, meaning R₀ = 10."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Meera is looking at historical data for polio where the R₀ was approximately 5 in a specific region. What proportion required immunity to prevent an epidemic?",
+            options: ["60%", "75%", "80%", "85%"],
+            correct: 2,
+            explanation: "1 - (1/5) = 1 - 0.20 = 0.80, or 80%."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Emogen reviews a novel strain of influenza. To prevent the strain from becoming endemic, models suggest a herd immunity threshold of 60%. What is the basic reproduction number?",
+            options: ["1.5", "2.0", "2.5", "3.0"],
+            correct: 2,
+            explanation: "1 - (1/R₀) = 0.60. Thus, 1/R₀ = 0.40, which means R₀ = 1 / 0.40 = 2.5."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Dylan is asked to calculate the target vaccination rate for a virus with an R₀ of 3. What is the herd immunity threshold?",
+            options: ["33.3%", "50%", "66.7%", "75%"],
+            correct: 2,
+            explanation: "1 - (1/3) = 2/3, which is approximately 66.7%."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Allison studies a slow-spreading respiratory illness with an R₀ of 1.5. What percentage of the population must be immune to achieve herd immunity?",
+            options: ["15%", "33.3%", "50%", "66.7%"],
+            correct: 1,
+            explanation: "1 - (1/1.5) = 1 - (2/3) = 1/3, or 33.3%."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Areen updates her models after a mutation increases the herd immunity threshold to 75%. What is the new R₀ of the virus?",
+            options: ["2", "3", "4", "5"],
+            correct: 2,
+            explanation: "1 - (1/R₀) = 0.75. 1/R₀ = 0.25, giving R₀ = 4."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Aria models an exceptionally contagious pathogen (R₀ = 10). What is the critical immunization threshold?",
+            options: ["80%", "90%", "95%", "99%"],
+            correct: 1,
+            explanation: "1 - (1/10) = 1 - 0.10 = 0.90, or 90%."
+        },
+
+        // Category 2: Vaccine Efficacy (10 questions)
         {
             category: "Vaccine Efficacy",
             text: "Ezekiel runs a randomized controlled trial for a new influenza vaccine. In the vaccinated group of 1,000 people, 20 contract the flu. In the unvaccinated placebo group of 1,000 people, 100 contract the flu. What is the vaccine efficacy?",
             options: ["20%", "80%", "90%", "95%"],
             correct: 1,
-            explanation: "Vaccine Efficacy = (Risk in Unvaccinated - Risk in Vaccinated) / Risk in Unvaccinated. Risk(unvax) = 100/1000 = 10%. Risk(vax) = 20/1000 = 2%. (10% - 2%) / 10% = 8 / 10 = 80%."
+            explanation: "Vaccine Efficacy = (Risk in Unvax - Risk in Vax) / Risk in Unvax. Risk(unvax) = 100/1000 = 10%. Risk(vax) = 20/1000 = 2%. (10% - 2%) / 10% = 8 / 10 = 80%."
         },
         {
             category: "Vaccine Efficacy",
@@ -256,50 +311,277 @@
             correct: 0,
             explanation: "VE = (AR_unvax - AR_vax) / AR_unvax. 0.60 = (0.15 - AR_vax) / 0.15. Solving for AR_vax: 0.09 = 0.15 - AR_vax, resulting in an attack rate of 0.06 or 6%."
         },
-        // Category 3: Likelihood Ratios (20%)
         {
-            category: "Likelihood Ratios",
-            text: "Meera is evaluating a rapid diagnostic test. The test has a sensitivity of 80% and a specificity of 90%. What is the positive likelihood ratio (LR+) of the test?",
-            options: ["0.22", "4.0", "8.0", "10.0"],
+            category: "Vaccine Efficacy",
+            text: "Meera leads a trial where 5 out of 500 vaccinated individuals contract a disease, compared to 50 out of 500 unvaccinated individuals. What is the vaccine efficacy?",
+            options: ["50%", "80%", "90%", "95%"],
             correct: 2,
-            explanation: "LR+ is defined as Sensitivity / (1 - Specificity). 0.80 / (1 - 0.90) = 0.80 / 0.10 = 8.0."
+            explanation: "Risk in vax = 1%. Risk in unvax = 10%. VE = (10% - 1%) / 10% = 90%."
         },
         {
-            category: "Likelihood Ratios",
-            text: "Emogen is assessing a new screening tool for heart failure. The test has a sensitivity of 95% and a specificity of 80%. What is the negative likelihood ratio (LR-) of this tool?",
-            options: ["0.0625", "0.25", "4.75", "5.0"],
-            correct: 0,
-            explanation: "LR- is defined as (1 - Sensitivity) / Specificity. (1 - 0.95) / 0.80 = 0.05 / 0.80 = 0.0625."
+            category: "Vaccine Efficacy",
+            text: "Emogen determines a vaccine has 75% efficacy. If the attack rate among the unvaccinated is 20%, what is the attack rate among the vaccinated?",
+            options: ["2.5%", "5%", "10%", "15%"],
+            correct: 1,
+            explanation: "0.75 = (0.20 - AR_vax) / 0.20. 0.15 = 0.20 - AR_vax, meaning AR_vax = 0.05, or 5%."
         },
-        // Category 4: Sensitivity and Specificity (20%)
         {
-            category: "Sensitivity and Specificity",
-            text: "Dylan is testing 500 patients for a rare disease, of which 100 actually have the disease. The test correctly identifies 80 diseased patients and falsely identifies 40 healthy patients as having the disease. What is the specificity of the test?",
+            category: "Vaccine Efficacy",
+            text: "Dylan reviews trial data: 10 infections out of 1,000 vaccinated, and 200 infections out of 1,000 unvaccinated. What is the vaccine efficacy?",
+            options: ["85%", "90%", "95%", "99%"],
+            correct: 2,
+            explanation: "Risk in vax = 1%. Risk in unvax = 20%. VE = (20% - 1%) / 20% = 19/20 = 95%."
+        },
+        {
+            category: "Vaccine Efficacy",
+            text: "Allison records a 10% attack rate in an unvaccinated cohort and a 5% attack rate in a vaccinated cohort. What is the vaccine efficacy?",
+            options: ["25%", "50%", "75%", "100%"],
+            correct: 1,
+            explanation: "VE = (10% - 5%) / 10% = 5 / 10 = 50%."
+        },
+        {
+            category: "Vaccine Efficacy",
+            text: "Areen finds 50 infections among 2,000 vaccinated subjects and 100 infections among 1,000 unvaccinated subjects. What is the vaccine efficacy?",
+            options: ["25%", "50%", "75%", "80%"],
+            correct: 2,
+            explanation: "Risk in vax = 50/2000 = 2.5%. Risk in unvax = 100/1000 = 10%. VE = (10 - 2.5) / 10 = 7.5/10 = 75%."
+        },
+        {
+            category: "Vaccine Efficacy",
+            text: "Aria notes an attack rate of 8% in the unvaccinated. The vaccine efficacy is 50%. What is the attack rate in the vaccinated?",
+            options: ["2%", "4%", "6%", "8%"],
+            correct: 1,
+            explanation: "0.50 = (0.08 - AR_vax) / 0.08. 0.04 = 0.08 - AR_vax, meaning AR_vax = 0.04 or 4%."
+        },
+        {
+            category: "Vaccine Efficacy",
+            text: "Ezekiel analyzes a trial where 1 out of 100 vaccinated subjects and 10 out of 100 unvaccinated subjects fell ill. What is the vaccine efficacy?",
             options: ["80%", "85%", "90%", "95%"],
             correct: 2,
-            explanation: "There are 400 healthy patients. The test gave 40 false positives, meaning there are 360 true negatives. Specificity = True Negatives / All Healthy = 360 / 400 = 90%."
+            explanation: "Risk in vax = 1%. Risk in unvax = 10%. VE = (10 - 1) / 10 = 90%."
+        },
+        {
+            category: "Vaccine Efficacy",
+            text: "Isha discovers an attack rate of 25% in the control group. If the vaccine has 80% efficacy, what is the attack rate in the vaccinated group?",
+            options: ["5%", "10%", "15%", "20%"],
+            correct: 0,
+            explanation: "0.80 = (0.25 - AR_vax) / 0.25. 0.20 = 0.25 - AR_vax, so AR_vax = 0.05 or 5%."
+        },
+
+        // Category 3: Likelihood Ratios (10 questions)
+        {
+            category: "Likelihood Ratios",
+            text: "Meera is evaluating a rapid diagnostic test. The test has a sensitivity of 80% and a specificity of 90%. What is the positive likelihood ratio (LR+)?",
+            options: ["0.22", "4.0", "8.0", "10.0"],
+            correct: 2,
+            explanation: "LR+ = Sensitivity / (1 - Specificity). 0.80 / (1 - 0.90) = 0.80 / 0.10 = 8.0."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Emogen is assessing a screening tool with a sensitivity of 95% and a specificity of 80%. What is the negative likelihood ratio (LR-)?",
+            options: ["0.0625", "0.25", "4.75", "5.0"],
+            correct: 0,
+            explanation: "LR- = (1 - Sensitivity) / Specificity. (1 - 0.95) / 0.80 = 0.05 / 0.80 = 0.0625."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Dylan tests a highly specific marker: Sensitivity is 90% and Specificity is 95%. What is the positive likelihood ratio (LR+)?",
+            options: ["1.8", "9.0", "18.0", "90.0"],
+            correct: 2,
+            explanation: "LR+ = 0.90 / (1 - 0.95) = 0.90 / 0.05 = 18.0."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Allison uses a clinical decision rule with 80% sensitivity and 75% specificity. What is the negative likelihood ratio (LR-)?",
+            options: ["0.266", "0.533", "1.06", "3.2"],
+            correct: 0,
+            explanation: "LR- = (1 - 0.80) / 0.75 = 0.20 / 0.75 ≈ 0.266."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Areen finds a test has 70% sensitivity and 90% specificity. What is the positive likelihood ratio (LR+)?",
+            options: ["0.77", "3.5", "7.0", "14.0"],
+            correct: 2,
+            explanation: "LR+ = 0.70 / (1 - 0.90) = 0.70 / 0.10 = 7.0."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Aria implements a highly sensitive screening (Sensitivity 99%, Specificity 90%). What is the negative likelihood ratio (LR-)?",
+            options: ["0.011", "0.10", "1.1", "11.0"],
+            correct: 0,
+            explanation: "LR- = (1 - 0.99) / 0.90 = 0.01 / 0.90 ≈ 0.011."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Ezekiel reviews a test with equal sensitivity and specificity at 85%. What is the positive likelihood ratio (LR+)?",
+            options: ["1.0", "2.83", "5.67", "8.5"],
+            correct: 2,
+            explanation: "LR+ = 0.85 / (1 - 0.85) = 0.85 / 0.15 = 5.67."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Isha uses a test with 75% sensitivity but only 50% specificity. What is the negative likelihood ratio (LR-)?",
+            options: ["0.25", "0.50", "1.5", "2.0"],
+            correct: 1,
+            explanation: "LR- = (1 - 0.75) / 0.50 = 0.25 / 0.50 = 0.50."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Meera evaluates a confirmatory test with 60% sensitivity and 95% specificity. What is the positive likelihood ratio (LR+)?",
+            options: ["1.2", "6.0", "12.0", "20.0"],
+            correct: 2,
+            explanation: "LR+ = 0.60 / (1 - 0.95) = 0.60 / 0.05 = 12.0."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Emogen reviews a triage test with 90% sensitivity and 60% specificity. What is the negative likelihood ratio (LR-)?",
+            options: ["0.10", "0.167", "0.60", "1.5"],
+            correct: 1,
+            explanation: "LR- = (1 - 0.90) / 0.60 = 0.10 / 0.60 ≈ 0.167."
+        },
+
+        // Category 4: Sensitivity and Specificity (10 questions)
+        {
+            category: "Sensitivity and Specificity",
+            text: "Dylan is testing 500 patients for a disease, of which 100 actually have the disease. The test falsely identifies 40 healthy patients as having the disease. What is the specificity?",
+            options: ["80%", "85%", "90%", "95%"],
+            correct: 2,
+            explanation: "Healthy patients = 400. False positives = 40. True negatives = 360. Specificity = 360 / 400 = 90%."
         },
         {
             category: "Sensitivity and Specificity",
-            text: "Allison runs a clinic and uses a screening test that identifies 45 out of 50 true positive cases. It also correctly identifies 190 out of 200 patients who do not have the condition. What is the sensitivity of this test?",
+            text: "Allison uses a screening test that identifies 45 out of 50 true positive cases. What is the sensitivity?",
             options: ["80%", "90%", "95%", "98%"],
             correct: 1,
-            explanation: "Sensitivity measures the proportion of true positives correctly identified. Sensitivity = True Positives / Total Actual Positives = 45 / 50 = 90%."
+            explanation: "Sensitivity = True Positives / Total Actual Positives = 45 / 50 = 90%."
         },
-        // Category 5: Odds Ratio and Relative Risk (20%)
+        {
+            category: "Sensitivity and Specificity",
+            text: "Areen tests 1,000 patients, of which 200 have the disease. The test yields 80 false positives. What is the specificity?",
+            options: ["80%", "85%", "90%", "95%"],
+            correct: 2,
+            explanation: "Healthy patients = 800. False positives = 80. True negatives = 720. Specificity = 720 / 800 = 90%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Aria screens 500 patients, 50 of whom have the disease. The test identifies 40 true positives. What is the sensitivity?",
+            options: ["70%", "80%", "90%", "100%"],
+            correct: 1,
+            explanation: "Sensitivity = 40 / 50 = 80%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Ezekiel implements a test on 2,000 patients. 100 have the disease. The test yields 190 false positives. What is the specificity?",
+            options: ["85%", "90%", "92.5%", "95%"],
+            correct: 1,
+            explanation: "Healthy patients = 1,900. False positives = 190. True negatives = 1,710. Specificity = 1,710 / 1,900 = 90%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Isha evaluates a cohort of 300 patients. 100 actually have the disease, and the test identifies 95 of them correctly. What is the sensitivity?",
+            options: ["85%", "90%", "95%", "99%"],
+            correct: 2,
+            explanation: "Sensitivity = 95 / 100 = 95%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Meera tests 1,000 patients (100 diseased, 900 healthy). The test yields 50 false positives. What is the specificity?",
+            options: ["90%", "92.5%", "94.4%", "96.5%"],
+            correct: 2,
+            explanation: "True negatives = 900 - 50 = 850. Specificity = 850 / 900 = 94.4%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Emogen uses a test on 400 patients, 80 of whom have the disease. The test yields 20 false negatives. What is the sensitivity?",
+            options: ["60%", "70%", "75%", "80%"],
+            correct: 2,
+            explanation: "True positives = 80 - 20 = 60. Sensitivity = 60 / 80 = 75%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Dylan tests 500 patients, 200 of whom have the disease. The test gives 60 false positives. What is the specificity?",
+            options: ["70%", "75%", "80%", "85%"],
+            correct: 2,
+            explanation: "Healthy = 300. False positives = 60. True negatives = 240. Specificity = 240 / 300 = 80%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Allison screens 600 patients, 100 of whom have the condition. The test returns 99 true positives. What is the sensitivity?",
+            options: ["90%", "95%", "98%", "99%"],
+            correct: 3,
+            explanation: "Sensitivity = 99 / 100 = 99%."
+        },
+
+        // Category 5: Odds Ratio and Relative Risk (10 questions)
         {
             category: "Odds Ratio and Relative Risk",
-            text: "Areen is conducting a case-control study on the association between a specific diet and a gastric illness. Among 100 cases, 60 consumed the diet. Among 100 controls, 40 consumed the diet. What is the Odds Ratio (OR)?",
+            text: "Areen conducts a case-control study: Among 100 cases, 60 were exposed. Among 100 controls, 40 were exposed. What is the Odds Ratio (OR)?",
             options: ["1.5", "2.25", "2.5", "3.0"],
             correct: 1,
-            explanation: "Odds of exposure in cases = 60/40 = 1.5. Odds of exposure in controls = 40/60 ≈ 0.667. Odds Ratio = 1.5 / 0.667 = 2.25."
+            explanation: "Odds in cases = 60/40 = 1.5. Odds in controls = 40/60 = 0.667. OR = 1.5 / 0.667 = 2.25."
         },
         {
             category: "Odds Ratio and Relative Risk",
-            text: "Ezekiel follows a cohort of 1,000 smokers and 1,000 non-smokers to observe the development of chronic bronchitis over 10 years. In the smoking group, 200 develop the disease. In the non-smoking group, 50 develop the disease. What is the Relative Risk (RR)?",
+            text: "Ezekiel follows 1,000 smokers (200 develop disease) and 1,000 non-smokers (50 develop disease). What is the Relative Risk (RR)?",
             options: ["2.0", "3.5", "4.0", "5.0"],
             correct: 2,
-            explanation: "Risk in exposed (smokers) = 200 / 1000 = 0.20. Risk in unexposed (non-smokers) = 50 / 1000 = 0.05. Relative Risk = 0.20 / 0.05 = 4.0."
+            explanation: "Risk exposed = 200/1000 = 0.20. Risk unexposed = 50/1000 = 0.05. RR = 0.20 / 0.05 = 4.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Aria looks at 50 cases (30 exposed) and 50 controls (10 exposed). What is the Odds Ratio (OR)?",
+            options: ["2.0", "4.0", "6.0", "8.0"],
+            correct: 2,
+            explanation: "Odds in cases = 30/20 = 1.5. Odds in controls = 10/40 = 0.25. OR = 1.5 / 0.25 = 6.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Isha tracks 500 exposed individuals (50 diseased) and 500 unexposed individuals (10 diseased). What is the Relative Risk (RR)?",
+            options: ["2.0", "3.0", "4.0", "5.0"],
+            correct: 3,
+            explanation: "Risk exposed = 50/500 = 0.10. Risk unexposed = 10/500 = 0.02. RR = 0.10 / 0.02 = 5.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Meera conducts a case-control study with 200 cases (150 exposed) and 200 controls (50 exposed). What is the Odds Ratio (OR)?",
+            options: ["3.0", "6.0", "9.0", "12.0"],
+            correct: 2,
+            explanation: "Odds in cases = 150/50 = 3. Odds in controls = 50/150 = 0.333. OR = 3 / 0.333 = 9.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Emogen follows a cohort: 1,000 exposed (100 disease) and 2,000 unexposed (100 disease). What is the Relative Risk (RR)?",
+            options: ["1.5", "2.0", "2.5", "3.0"],
+            correct: 1,
+            explanation: "Risk exposed = 100/1000 = 0.10. Risk unexposed = 100/2000 = 0.05. RR = 0.10 / 0.05 = 2.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Dylan reviews 80 cases (40 exposed) and 80 controls (20 exposed). What is the Odds Ratio (OR)?",
+            options: ["1.5", "2.0", "3.0", "4.0"],
+            correct: 2,
+            explanation: "Odds in cases = 40/40 = 1. Odds in controls = 20/60 = 0.333. OR = 1 / 0.333 = 3.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Allison tracks 300 exposed workers (60 fall ill) and 300 unexposed workers (30 fall ill). What is the Relative Risk (RR)?",
+            options: ["1.5", "2.0", "2.5", "3.0"],
+            correct: 1,
+            explanation: "Risk exposed = 60/300 = 0.20. Risk unexposed = 30/300 = 0.10. RR = 0.20 / 0.10 = 2.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Areen analyzes 100 cases (80 exposed) and 100 controls (20 exposed). What is the Odds Ratio (OR)?",
+            options: ["4.0", "8.0", "12.0", "16.0"],
+            correct: 3,
+            explanation: "Odds in cases = 80/20 = 4. Odds in controls = 20/80 = 0.25. OR = 4 / 0.25 = 16.0."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Ezekiel monitors 400 exposed individuals (80 get sick) and 400 unexposed individuals (20 get sick). What is the Relative Risk (RR)?",
+            options: ["2.0", "3.0", "4.0", "5.0"],
+            correct: 2,
+            explanation: "Risk exposed = 80/400 = 0.20. Risk unexposed = 20/400 = 0.05. RR = 0.20 / 0.05 = 4.0."
         }
     ];
 
