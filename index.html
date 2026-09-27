@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epidemiology Vignettes Test</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --correct-color: #27ae60;
+            --incorrect-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary-color);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #e1f0fa;
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--secondary-color);
+            background: #f1f8ff;
+        }
+
+        .option-btn.correct {
+            background: #e8f8f5;
+            border-color: var(--correct-color);
+            color: var(--correct-color);
+        }
+
+        .option-btn.incorrect {
+            background: #fdedec;
+            border-color: var(--incorrect-color);
+            color: var(--incorrect-color);
+        }
+
+        .feedback {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback-correct {
+            background: #e8f8f5;
+            border-left: 5px solid var(--correct-color);
+        }
+
+        .feedback-incorrect {
+            background: #fdedec;
+            border-left: 5px solid var(--incorrect-color);
+        }
+
+        .feedback h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .next-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            width: 100%;
+            display: none;
+        }
+
+        .next-btn:hover {
+            background: #1a252f;
+        }
+
+        #result-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .score-display {
+            font-size: 3em;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <h1>Epidemiology Vignettes</h1>
+        <div class="subtitle">10 Clinical Problems: Decipher the Data</div>
+    </header>
+
+    <div id="quiz-ui">
+        <div class="progress-header">
+            <span id="question-counter">Question 1 of 10</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div id="quiz-container">
+            <div class="category-badge" id="category">Category</div>
+            <div class="question-text" id="question-text">Loading...</div>
+            
+            <div class="options" id="options">
+                <!-- Buttons will be generated here -->
+            </div>
+
+            <div class="feedback" id="feedback">
+                <h3 id="feedback-title"></h3>
+                <div id="feedback-text"></div>
+            </div>
+
+            <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+        </div>
+    </div>
+    
+    <div id="result-container" style="display:none;">
+        <h2>Quiz Complete!</h2>
+        <p>You have finished all 10 questions.</p>
+        <div class="score-display" id="score"></div>
+        <p>Review the principles of Herd Immunity, Vaccine Efficacy, Likelihood Ratios, Sensitivity/Specificity, and Odds Ratio/Relative Risk to reinforce your knowledge.</p>
+        <button class="next-btn" style="display:inline-block;" onclick="location.reload()">Restart Quiz</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        // Category 1: Herd Immunity (20%)
+        {
+            category: "Herd Immunity",
+            text: "Areen is a public health official modeling a new viral outbreak in her city. The basic reproduction number (R₀) of the virus is estimated to be 4. What is the minimum proportion of the population that needs to be immunized to achieve herd immunity?",
+            options: ["25%", "50%", "75%", "80%"],
+            correct: 2,
+            explanation: "The herd immunity threshold is calculated as 1 - (1/R₀). Here, 1 - (1/4) = 1 - 0.25 = 0.75, or 75%."
+        },
+        {
+            category: "Herd Immunity",
+            text: "Aria is studying a measles outbreak in a community. The critical vaccination threshold for herd immunity against this strain is calculated to be 87.5%. What is the basic reproduction number (R₀) of this strain?",
+            options: ["4", "6", "8", "10"],
+            correct: 2,
+            explanation: "Using the formula 1 - (1/R₀) = Threshold: 1 - (1/R₀) = 0.875. This means 1/R₀ = 0.125, which gives R₀ = 8."
+        },
+        // Category 2: Vaccine Efficacy (20%)
+        {
+            category: "Vaccine Efficacy",
+            text: "Ezekiel runs a randomized controlled trial for a new influenza vaccine. In the vaccinated group of 1,000 people, 20 contract the flu. In the unvaccinated placebo group of 1,000 people, 100 contract the flu. What is the vaccine efficacy?",
+            options: ["20%", "80%", "90%", "95%"],
+            correct: 1,
+            explanation: "Vaccine Efficacy = (Risk in Unvaccinated - Risk in Vaccinated) / Risk in Unvaccinated. Risk(unvax) = 100/1000 = 10%. Risk(vax) = 20/1000 = 2%. (10% - 2%) / 10% = 8 / 10 = 80%."
+        },
+        {
+            category: "Vaccine Efficacy",
+            text: "Isha evaluates a new rotavirus vaccine in a cohort. The attack rate in the unvaccinated group is 15%. If the vaccine efficacy is 60%, what is the expected attack rate in the vaccinated group?",
+            options: ["6%", "9%", "10%", "12%"],
+            correct: 0,
+            explanation: "VE = (AR_unvax - AR_vax) / AR_unvax. 0.60 = (0.15 - AR_vax) / 0.15. Solving for AR_vax: 0.09 = 0.15 - AR_vax, resulting in an attack rate of 0.06 or 6%."
+        },
+        // Category 3: Likelihood Ratios (20%)
+        {
+            category: "Likelihood Ratios",
+            text: "Meera is evaluating a rapid diagnostic test. The test has a sensitivity of 80% and a specificity of 90%. What is the positive likelihood ratio (LR+) of the test?",
+            options: ["0.22", "4.0", "8.0", "10.0"],
+            correct: 2,
+            explanation: "LR+ is defined as Sensitivity / (1 - Specificity). 0.80 / (1 - 0.90) = 0.80 / 0.10 = 8.0."
+        },
+        {
+            category: "Likelihood Ratios",
+            text: "Emogen is assessing a new screening tool for heart failure. The test has a sensitivity of 95% and a specificity of 80%. What is the negative likelihood ratio (LR-) of this tool?",
+            options: ["0.0625", "0.25", "4.75", "5.0"],
+            correct: 0,
+            explanation: "LR- is defined as (1 - Sensitivity) / Specificity. (1 - 0.95) / 0.80 = 0.05 / 0.80 = 0.0625."
+        },
+        // Category 4: Sensitivity and Specificity (20%)
+        {
+            category: "Sensitivity and Specificity",
+            text: "Dylan is testing 500 patients for a rare disease, of which 100 actually have the disease. The test correctly identifies 80 diseased patients and falsely identifies 40 healthy patients as having the disease. What is the specificity of the test?",
+            options: ["80%", "85%", "90%", "95%"],
+            correct: 2,
+            explanation: "There are 400 healthy patients. The test gave 40 false positives, meaning there are 360 true negatives. Specificity = True Negatives / All Healthy = 360 / 400 = 90%."
+        },
+        {
+            category: "Sensitivity and Specificity",
+            text: "Allison runs a clinic and uses a screening test that identifies 45 out of 50 true positive cases. It also correctly identifies 190 out of 200 patients who do not have the condition. What is the sensitivity of this test?",
+            options: ["80%", "90%", "95%", "98%"],
+            correct: 1,
+            explanation: "Sensitivity measures the proportion of true positives correctly identified. Sensitivity = True Positives / Total Actual Positives = 45 / 50 = 90%."
+        },
+        // Category 5: Odds Ratio and Relative Risk (20%)
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Areen is conducting a case-control study on the association between a specific diet and a gastric illness. Among 100 cases, 60 consumed the diet. Among 100 controls, 40 consumed the diet. What is the Odds Ratio (OR)?",
+            options: ["1.5", "2.25", "2.5", "3.0"],
+            correct: 1,
+            explanation: "Odds of exposure in cases = 60/40 = 1.5. Odds of exposure in controls = 40/60 ≈ 0.667. Odds Ratio = 1.5 / 0.667 = 2.25."
+        },
+        {
+            category: "Odds Ratio and Relative Risk",
+            text: "Ezekiel follows a cohort of 1,000 smokers and 1,000 non-smokers to observe the development of chronic bronchitis over 10 years. In the smoking group, 200 develop the disease. In the non-smoking group, 50 develop the disease. What is the Relative Risk (RR)?",
+            options: ["2.0", "3.5", "4.0", "5.0"],
+            correct: 2,
+            explanation: "Risk in exposed (smokers) = 200 / 1000 = 0.20. Risk in unexposed (non-smokers) = 50 / 1000 = 0.05. Relative Risk = 0.20 / 0.05 = 4.0."
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        const q = questions[currentQuestionIndex];
+        
+        // Update headers
+        document.getElementById('category').innerText = q.category;
+        document.getElementById('question-counter').innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        document.getElementById('progress-bar').style.width = `${(currentQuestionIndex / questions.length) * 100}%`;
+        document.getElementById('question-text').innerText = q.text;
+
+        // Render options
+        const optionsContainer = document.getElementById('options');
+        optionsContainer.innerHTML = '';
+        
+        q.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(index, btn);
+            optionsContainer.appendChild(btn);
+        });
+
+        // Hide feedback and next button
+        document.getElementById('feedback').className = 'feedback';
+        document.getElementById('next-btn').style.display = 'none';
+    }
+
+    function selectOption(selectedIndex, btnElement) {
+        const q = questions[currentQuestionIndex];
+        const buttons = document.querySelectorAll('.option-btn');
+        const feedbackEl = document.getElementById('feedback');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        
+        // Disable all buttons after selection
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedIndex === q.correct) {
+            btnElement.classList.add('correct');
+            feedbackEl.className = 'feedback show feedback-correct';
+            feedbackTitle.innerText = 'Correct!';
+            score++;
+        } else {
+            btnElement.classList.add('incorrect');
+            buttons[q.correct].classList.add('correct');
+            feedbackEl.className = 'feedback show feedback-incorrect';
+            feedbackTitle.innerText = 'Incorrect';
+        }
+
+        feedbackText.innerText = q.explanation;
+        document.getElementById('next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            document.getElementById('quiz-ui').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            document.getElementById('score').innerText = `${score} / ${questions.length}`;
+        }
+    }
+
+    // Initialize the quiz on load
+    window.onload = loadQuestion;
+</script>
+
+</body>
+</html>
